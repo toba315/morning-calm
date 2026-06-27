@@ -1,0 +1,33 @@
+# Backlog Issues
+
+- [GOOD-8](./issues/GOOD-8.md) 画面遷移図の作成　→テキストで
+- [GOOD-29](./issues/GOOD-29.md) ニュース記事の取得元（ソース）の選定
+- [GOOD-1](./issues/GOOD-1.md) 基本コンセプト
+- [GOOD-19](./issues/GOOD-19.md) ニュース保存用データベースの構築
+- [GOOD-20](./issues/GOOD-20.md) ニュース配信サーバーのAPI実装
+- [GOOD-21](./issues/GOOD-21.md) 実機テストによる不具合（バグ）の洗い出し
+- [GOOD-22](./issues/GOOD-22.md) 検出されたバグの修正対応
+- [GOOD-23](./issues/GOOD-23.md) ペルソナ視点に基づくUIの視認性調整
+- [GOOD-12](./issues/GOOD-12.md) 開発に使用する技術（フレームワーク等）の選定
+- [GOOD-13](./issues/GOOD-13.md) 各自のPCにおける開発環境の構築
+- [GOOD-14](./issues/GOOD-14.md) AIポジティブフィルターのロジック実験
+- [GOOD-15](./issues/GOOD-15.md) AIポジティブフィルターの機能実装
+- [GOOD-16](./issues/GOOD-16.md) アプリのニュース一覧画面の実装
+- [GOOD-17](./issues/GOOD-17.md) アプリのニュース詳細画面の実装
+- [GOOD-18](./issues/GOOD-18.md) 無料閲覧制限（1日5本）のカウント機能の実装
+- [GOOD-30](./issues/GOOD-30.md) ニュース自動収集プログラムの構築
+- [GOOD-31](./issues/GOOD-31.md) 収集プログラムとAIポジティブフィルターの連携実装
+- [GOOD-6](./issues/GOOD-6.md) 収益の配分
+- [GOOD-5](./issues/GOOD-5.md) 役割分担
+- [GOOD-2](./issues/GOOD-2.md) ポジティブの定義
+- [GOOD-3](./issues/GOOD-3.md) ターゲットユーザー
+- [GOOD-7](./issues/GOOD-7.md) タスクの一覧化
+- [GOOD-28](./issues/GOOD-28.md) リリース初期のコンテンツ目視チェック運用の開始
+- [GOOD-27](./issues/GOOD-27.md) アプリストアへの公開申請の手続き
+- [GOOD-26](./issues/GOOD-26.md) ストア掲載用の紹介文・画像素材の作成
+- [GOOD-25](./issues/GOOD-25.md) Googleデベロッパーアカウントの取得
+- [GOOD-24](./issues/GOOD-24.md) Appleデベロッパーアカウントの取得
+- [GOOD-11](./issues/GOOD-11.md) 環境型広告の表示ロジックの定義
+- [GOOD-10](./issues/GOOD-10.md) 環境型広告の掲載ルールの策定
+- [GOOD-9](./issues/GOOD-9.md) ワイヤーフレーム（画面構成案）の作成
+- [GOOD-4](./issues/GOOD-4.md) 利用シーンの定義

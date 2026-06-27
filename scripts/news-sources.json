@@ -1,0 +1,63 @@
+[
+  {
+    "id": "sumida-aquarium",
+    "name": "すみだ水族館",
+    "type": "html",
+    "url": "https://www.sumida-aquarium.com/news/",
+    "category": "生きもの",
+    "visual": "water",
+    "licenseName": "公式発表",
+    "attribution": "すみだ水族館"
+  },
+  {
+    "id": "kyoto-aquarium",
+    "name": "京都水族館",
+    "type": "html",
+    "url": "https://www.kyoto-aquarium.com/news/",
+    "category": "生きもの",
+    "visual": "water",
+    "licenseName": "公式発表",
+    "attribution": "京都水族館"
+  },
+  {
+    "id": "sunshine-aquarium",
+    "name": "サンシャイン水族館",
+    "type": "html",
+    "url": "https://sunshinecity.jp/aquarium/news/",
+    "category": "生きもの",
+    "visual": "water",
+    "licenseName": "公式発表",
+    "attribution": "サンシャイン水族館"
+  },
+  {
+    "id": "en-wikinews",
+    "name": "Wikinews",
+    "type": "mediawiki",
+    "url": "https://en.wikinews.org/w/api.php?action=query&generator=categorymembers&gcmtitle=Category:Published&gcmlimit=20&gcmnamespace=0&gcmdir=desc&prop=info&inprop=url&format=json",
+    "category": "世界",
+    "visual": "market",
+    "licenseName": "CC BY 4.0 / CC BY 2.5",
+    "licenseUrl": "https://en.wikinews.org/wiki/Wikinews:Copyright",
+    "attribution": "Wikinews"
+  },
+  {
+    "id": "riken",
+    "name": "理化学研究所",
+    "type": "html",
+    "url": "https://www.riken.jp/press/",
+    "category": "研究",
+    "visual": "market",
+    "licenseName": "公式発表",
+    "attribution": "理化学研究所"
+  },
+  {
+    "id": "meti",
+    "name": "経済産業省",
+    "type": "html",
+    "url": "https://www.meti.go.jp/press/",
+    "category": "社会",
+    "visual": "station",
+    "licenseName": "公式発表",
+    "attribution": "経済産業省"
+  }
+]

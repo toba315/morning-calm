@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Morning Calm Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell" aria-label="Morning Calm prototype">
+      <section class="device">
+        <div class="status-bar">
+          <span>7:04</span>
+          <span>Morning Calm</span>
+        </div>
+
+        <section id="splash" class="screen screen-active splash-screen">
+          <div class="logo-mark" aria-hidden="true">
+            <span></span>
+          </div>
+          <h1>Morning Calm</h1>
+          <p class="subcopy">朝のメンタル・チューニング</p>
+          <p class="streak"><strong id="splashStreak">12</strong>日連続</p>
+        </section>
+
+        <section id="reader" class="screen reader-screen" aria-live="polite">
+          <header class="screen-header">
+            <div>
+              <p class="eyebrow" id="readerPlan">無料版</p>
+              <h2>今日の5本</h2>
+              <p class="reader-copy" id="readerCopy">公式発表から作った、明るいニュースを1本ずつ。</p>
+            </div>
+            <button class="ghost-button" id="togglePlan" type="button">有料版へ</button>
+          </header>
+
+          <div class="progress-wrap" aria-label="残り本数">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+
+          <article class="news-card" id="newsCard">
+            <p class="category" id="newsCategory">生きもの</p>
+            <h3 id="newsTitle">新しいニュースを読み込みます</h3>
+            <p id="newsBody">公式発表のメタ情報をもとに、本文を流用せずに短いコラムを表示します。</p>
+            <p class="news-hint" id="newsHint">今日の見方が少し軽くなるヒントを添えます。</p>
+          </article>
+
+          <div class="swipe-controls" aria-label="記事移動">
+            <button id="prevCard" type="button">戻る</button>
+            <span id="cardCount">1 / 5</span>
+            <button id="nextCard" type="button">次へ</button>
+          </div>
+
+          <div id="ambientAd" class="ambient-ad">
+            <span>朝の集中を妨げない、静かな広告枠</span>
+          </div>
+        </section>
+
+        <section id="summary" class="screen summary-screen">
+          <header class="screen-header">
+            <div>
+              <p class="eyebrow" id="summaryPlan">無料版</p>
+              <h2>今日の一覧</h2>
+              <p class="summary-copy">公式発表から拾ったファクトを、Morning Calmの文体で振り返ります。</p>
+            </div>
+            <button class="ghost-button" id="restart" type="button">最初へ</button>
+          </header>
+
+          <section id="calendarPanel" class="calendar-panel" aria-label="当月カレンダー">
+            <div class="calendar-head">
+              <span id="calendarMonth">2026年6月</span>
+              <span class="tiny-note">読了日が点灯</span>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+            <div class="mood-row" aria-label="今日の気分">
+              <button type="button" data-mood="sun">晴れ</button>
+              <button type="button" data-mood="cloud">曇り</button>
+              <button type="button" data-mood="rain">雨</button>
+            </div>
+          </section>
+
+          <ul class="title-list" id="titleList"></ul>
+
+          <button id="moreSet" class="primary-button" type="button">次の5本をチューニングする</button>
+
+          <footer class="fixed-message" id="fixedMessage">
+            現在12日連続で読了中。明日も朝の時間でお会いしましょう。
+          </footer>
+        </section>
+
+        <dialog id="detailModal" class="detail-modal">
+          <article>
+            <div class="modal-image" id="modalImage" aria-hidden="true"></div>
+            <p class="category" id="modalCategory"></p>
+            <h3 id="modalTitle"></h3>
+            <p class="modal-meta" id="modalMeta"></p>
+            <p id="modalBody"></p>
+            <p class="modal-hint" id="modalHint"></p>
+            <div class="modal-ad" id="modalAd">出典ページで一次情報を確認できます。</div>
+            <button id="closeModal" class="primary-button" type="button">閉じる</button>
+          </article>
+        </dialog>
+      </section>
+
+      <aside class="flow-panel" aria-label="ニュース収集パイプライン">
+        <section class="spec-panel">
+          <p class="eyebrow">GOOD-29 / GOOD-30</p>
+          <h2>ニュース収集</h2>
+          <p>
+            公式RSSまたは公式新着ページから、日付・タイトル・URL・発表元だけを取得します。
+            本文の丸ごと保存や要約ではなく、確認できるファクトから短いオリジナル記事を生成します。
+          </p>
+          <p class="spec-note">実行: npm run news:fetch</p>
+        </section>
+
+        <section class="spec-panel">
+          <h3>取得対象</h3>
+          <ul class="spec-list">
+            <li>水族館・動物園・博物館などの公式お知らせ</li>
+            <li>研究機関・自治体・政府機関の一次発表</li>
+            <li>本文流用なしで扱える、明るい事実ベースの話題</li>
+          </ul>
+        </section>
+
+        <section class="spec-panel">
+          <h3>著作権対策</h3>
+          <ol class="pipeline-list">
+            <li>記事本文は保存しない</li>
+            <li>RSS descriptionは本文生成に使わない</li>
+            <li>タイトル・日付・URL・発表元からファクトを整理</li>
+            <li>アプリ文面は独自テンプレートで新規作成</li>
+            <li>詳細は公式発表へリンクする</li>
+          </ol>
+        </section>
+
+        <section class="spec-panel">
+          <h3>生成ファイル</h3>
+          <p>
+            <code>scripts/fetch-news.mjs</code> が <code>news-data.js</code> を生成し、
+            画面は <code>window.MORNING_CALM_NEWS</code> を読み込みます。
+          </p>
+        </section>
+      </aside>
+    </main>
+
+    <script src="./news-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

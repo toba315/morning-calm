@@ -1,0 +1,17 @@
+{
+  "name": "morning-calm",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "backlog:sync": "node scripts/backlog-sync.mjs sync",
+    "backlog:task": "node scripts/backlog-sync.mjs task",
+    "news:fetch": "node scripts/fetch-news.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
