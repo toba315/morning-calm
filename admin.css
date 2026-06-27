@@ -203,6 +203,15 @@ button:disabled {
   line-height: 1.5;
 }
 
+.selected-list .empty-slot {
+  padding: 10px 12px;
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-style: italic;
+  background: #fafbf8;
+}
+
 .note {
   line-height: 1.6;
 }

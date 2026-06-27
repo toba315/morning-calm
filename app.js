@@ -67,7 +67,7 @@ const fallbackArticles = [
 ];
 
 const generatedArticles = Array.isArray(window.MORNING_CALM_NEWS) ? window.MORNING_CALM_NEWS : [];
-const articles = (generatedArticles.length >= 5 ? generatedArticles : fallbackArticles).slice(0, 5);
+const articles = (generatedArticles.length > 0 ? generatedArticles : fallbackArticles).slice(0, 5);
 
 const todayKey = new Date().toISOString().slice(0, 10);
 const usageKey = "morning-calm-usage";

@@ -1,4 +1,4 @@
-// Published from admin at 2026-06-27T07:44:14.750Z
+// Published from admin at 2026-06-27T09:11:53.006Z
 window.MORNING_CALM_NEWS = [
   {
     "id": "news-f03daf69",

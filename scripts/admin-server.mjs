@@ -33,8 +33,16 @@ const server = http.createServer(async (request, response) => {
     }
 
     if (request.method === "POST" && request.url === "/api/fetch") {
+      const before = await readNewsState();
+      const beforeSignature = articlesSignature(before.articles);
       const result = await runFetch();
-      return sendJson(response, { ok: true, result, state: await readNewsState() });
+      const state = await readNewsState();
+      const afterSignature = articlesSignature(state.articles);
+      const changed = beforeSignature !== afterSignature;
+      const message = changed
+        ? `取得完了。${state.articles.length}件の内容が更新されました。`
+        : `取得完了。新しいニュースはありませんでした。前回と同じ内容です。`;
+      return sendJson(response, { ok: true, result, state, changed, message });
     }
 
     if (request.method === "POST" && request.url === "/api/publish") {
@@ -42,7 +50,13 @@ const server = http.createServer(async (request, response) => {
       const state = await readNewsState();
       const selected = selectArticles(state.candidates, payload.ids);
       await publishArticles(selected);
-      return sendJson(response, { ok: true, publishedAt: new Date().toISOString(), articles: selected });
+      return sendJson(response, {
+        ok: true,
+        publishedAt: new Date().toISOString(),
+        count: selected.length,
+        articles: selected,
+        message: `${selected.length}件を反映しました。`,
+      });
     }
 
     return serveStatic(request, response);
@@ -113,7 +127,8 @@ async function runFetch() {
 
 function selectArticles(candidates, ids) {
   if (!Array.isArray(ids)) throw new Error("ids must be an array");
-  if (ids.length !== 5) throw new Error("Select exactly 5 news items");
+  if (ids.length < 1) throw new Error("Select at least 1 news item");
+  if (ids.length > 5) throw new Error("Select no more than 5 news items");
 
   const byId = new Map(candidates.map((article) => [article.id, article]));
   const selected = ids.map((id) => byId.get(id));
@@ -160,4 +175,16 @@ function corsHeaders() {
     "access-control-allow-methods": "GET,POST,OPTIONS",
     "access-control-allow-headers": "content-type",
   };
+}
+
+function articlesSignature(articles) {
+  return JSON.stringify(
+    (Array.isArray(articles) ? articles : []).map((article) => ({
+      id: article.id || "",
+      title: article.title || "",
+      source: article.source || "",
+      sourceUrl: article.sourceUrl || "",
+      publishedAt: article.publishedAt || "",
+    })),
+  );
 }

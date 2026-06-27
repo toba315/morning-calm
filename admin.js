@@ -5,7 +5,13 @@ const state = {
 };
 
 const apiBase = `${window.location.protocol}//${window.location.hostname}:4174`;
-const frontUrl = `${window.location.protocol}//${window.location.hostname}:4173/index.html`;
+const selectionQuotes = [
+  "急がず、一件ずつ整えれば十分です。",
+  "静かな朝ほど、ひとつの変化がよく見えます。",
+  "少し空いているくらいが、景色にはちょうどいい。",
+  "ひと呼吸おくと、選ぶ理由も見えてきます。",
+  "更新は小さくても、流れは変わります。",
+];
 
 const el = {
   fetchNews: document.querySelector("#fetchNews"),
@@ -30,11 +36,11 @@ loadNews();
 
 async function loadNews() {
   setStatus("候補を読み込み中");
-  const data = await api("/api/news");
+  const data = await api(`${apiBase}/api/news`);
   state.candidates = data.candidates || [];
   state.generatedAt = data.generatedAt || "";
   state.selectedIds = (data.articles || []).slice(0, 5).map((article) => article.id);
-  setStatus("読み込み完了");
+  setStatus("候補を読み込みました");
   render();
 }
 
@@ -45,7 +51,7 @@ async function fetchLatestNews() {
     state.candidates = data.state.candidates || [];
     state.generatedAt = data.state.generatedAt || "";
     state.selectedIds = (data.state.articles || []).slice(0, 5).map((article) => article.id);
-    setStatus("取得完了");
+    setStatus(data.message || "取得完了");
     render();
   } catch (error) {
     setStatus(`取得失敗: ${error.message}`);
@@ -55,16 +61,16 @@ async function fetchLatestNews() {
 }
 
 async function publishSelected() {
-  if (state.selectedIds.length !== 5) return;
+  if (state.selectedIds.length < 1) return;
 
   setBusy(true, "反映中");
   try {
-    await api(`${apiBase}/api/publish`, {
+    const result = await api(`${apiBase}/api/publish`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ ids: state.selectedIds }),
     });
-    setStatus("フロントへ反映しました");
+    setStatus(result.message || `${result.count || state.selectedIds.length}件を反映しました`);
   } catch (error) {
     setStatus(`反映失敗: ${error.message}`);
   } finally {
@@ -85,7 +91,7 @@ function render() {
   el.generatedAt.textContent = state.generatedAt ? formatDate(state.generatedAt) : "-";
   el.candidateCount.textContent = `${state.candidates.length}件`;
   el.selectedCount.textContent = `${state.selectedIds.length} / 5`;
-  el.publishNews.disabled = state.selectedIds.length !== 5;
+  el.publishNews.disabled = state.selectedIds.length < 1;
 
   el.candidateList.innerHTML = "";
   state.candidates.forEach((article) => {
@@ -126,14 +132,20 @@ function render() {
   });
 
   el.selectedList.innerHTML = "";
-  state.selectedIds
-    .map((id) => state.candidates.find((article) => article.id === id))
-    .filter(Boolean)
-    .forEach((article) => {
-      const item = document.createElement("li");
+  for (let slot = 0; slot < 5; slot += 1) {
+    const item = document.createElement("li");
+    const articleId = state.selectedIds[slot];
+    const article = articleId ? state.candidates.find((entry) => entry.id === articleId) : null;
+
+    if (article) {
       item.textContent = article.originalTitle || article.title;
-      el.selectedList.append(item);
-    });
+    } else {
+      item.className = "empty-slot";
+      item.textContent = selectionQuotes[slot] || "小さな更新でも、流れは変わります。";
+    }
+
+    el.selectedList.append(item);
+  }
 }
 
 async function api(url, options = {}) {
@@ -145,7 +157,7 @@ async function api(url, options = {}) {
 
 function setBusy(isBusy, message = "") {
   el.fetchNews.disabled = isBusy;
-  el.publishNews.disabled = isBusy || state.selectedIds.length !== 5;
+  el.publishNews.disabled = isBusy || state.selectedIds.length < 1;
   if (message) setStatus(message);
 }
 
@@ -171,7 +183,7 @@ function categoryLabel(category) {
     creatures: "生きもの",
     research: "研究",
     society: "社会",
-    world: "世界",
+    world: "国際",
   };
   return labels[category] || category || "ニュース";
 }
