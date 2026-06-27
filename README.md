@@ -4,6 +4,7 @@
 
 Backlog課題ごとの開発記録は `docs/development-log.md` に追記します。
 GOOD-29のニュース取得元選定・収集システム導入の記録もここに残しています。
+GOOD-30の自動収集プログラムの記録は `docs/development-log-good30.md` に残しています。
 
 静的HTML/CSS/JavaScriptで作成したプロトタイプです。
 

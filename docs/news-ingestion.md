@@ -21,10 +21,30 @@ npm run news:fetch
 生成先:
 
 ```text
+data/news-items.json
 news-data.js
 ```
 
 画面は `window.MORNING_CALM_NEWS` を読み込む。
+
+`data/news-items.json` は自動収集プログラムの検証用データです。各記事には `title`, `body`, `imageUrl`, `sourceUrl`, `publishedAt`, `licenseName`, `attribution` を含めます。
+`body` は取得元本文の転載や要約ではなく、タイトル・日付・発表元などのメタ情報からMorning Calm用に新規作成した短文です。
+
+## Daily schedule
+
+Windowsのタスクスケジューラに毎朝6時の実行を登録する場合:
+
+```bash
+npm run news:schedule:windows
+```
+
+時刻を変える場合:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/register-news-task.ps1 -DailyTime "07:30"
+```
+
+登録後、タスクスケジューラ上で `MorningCalmNewsFetch` として確認できます。
 
 ## ソース追加
 

@@ -6,7 +6,8 @@
   "scripts": {
     "backlog:sync": "node scripts/backlog-sync.mjs sync",
     "backlog:task": "node scripts/backlog-sync.mjs task",
-    "news:fetch": "node scripts/fetch-news.mjs"
+    "news:fetch": "node scripts/fetch-news.mjs",
+    "news:schedule:windows": "powershell -ExecutionPolicy Bypass -File scripts/register-news-task.ps1"
   },
   "dependencies": {
     "dotenv": "^16.4.7"

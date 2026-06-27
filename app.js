@@ -140,7 +140,7 @@ function renderReader() {
       ? "広告なしで、追加のチューニングも読めます。"
       : `無料版は本日あと${remaining}本。`;
   el.progressBar.style.width = `${((state.index + 1) / articles.length) * 100}%`;
-  el.newsCategory.textContent = article.category;
+  el.newsCategory.textContent = categoryLabel(article.category);
   el.newsTitle.textContent = article.title;
   el.newsBody.textContent = article.body;
   el.newsHint.textContent = article.hint;
@@ -190,7 +190,7 @@ function renderSummary() {
     category.className = "summary-category";
     title.className = "summary-title";
     preview.className = "summary-preview";
-    category.textContent = `${article.category} / ${article.source}`;
+    category.textContent = `${categoryLabel(article.category)} / ${article.source}`;
     title.textContent = article.title;
     preview.textContent = article.body;
     open.append(category, title, preview);
@@ -218,7 +218,12 @@ function openDetail(index) {
   const article = articles[index];
   const facts = Array.isArray(article.facts) ? article.facts.join(" / ") : "";
   el.modalImage.className = `modal-image image-${article.visual || "water"}`;
-  el.modalCategory.textContent = article.category;
+  el.modalImage.style.backgroundImage = article.imageUrl
+    ? `linear-gradient(135deg, rgba(249, 249, 246, 0.18), rgba(44, 62, 80, 0.22)), url("${article.imageUrl}")`
+    : "";
+  el.modalImage.style.backgroundSize = article.imageUrl ? "cover" : "";
+  el.modalImage.style.backgroundPosition = article.imageUrl ? "center" : "";
+  el.modalCategory.textContent = categoryLabel(article.category);
   el.modalTitle.textContent = article.title;
   el.modalMeta.textContent = `${article.source} / ${formatDate(article.publishedAt)} / ${article.pipeline}`;
   el.modalBody.textContent = article.body;
@@ -348,4 +353,14 @@ function formatDate(value) {
 function attributionText(article) {
   if (!article.licenseName && !article.attribution) return "出典ページで一次情報を確認できます。";
   return `出典/ライセンス: ${article.attribution || article.source} / ${article.licenseName || "公式発表"}`;
+}
+
+function categoryLabel(category) {
+  const labels = {
+    creatures: "生きもの",
+    research: "研究",
+    society: "社会",
+    world: "世界",
+  };
+  return labels[category] || category || "ニュース";
 }

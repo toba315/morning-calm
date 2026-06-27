@@ -1,63 +1,69 @@
 [
   {
     "id": "sumida-aquarium",
-    "name": "すみだ水族館",
+    "name": "Sumida Aquarium",
     "type": "html",
     "url": "https://www.sumida-aquarium.com/news/",
-    "category": "生きもの",
+    "category": "creatures",
     "visual": "water",
-    "licenseName": "公式発表",
-    "attribution": "すみだ水族館"
+    "licenseName": "official announcement",
+    "attribution": "Sumida Aquarium",
+    "enabled": true
   },
   {
     "id": "kyoto-aquarium",
-    "name": "京都水族館",
+    "name": "Kyoto Aquarium",
     "type": "html",
     "url": "https://www.kyoto-aquarium.com/news/",
-    "category": "生きもの",
+    "category": "creatures",
     "visual": "water",
-    "licenseName": "公式発表",
-    "attribution": "京都水族館"
+    "licenseName": "official announcement",
+    "attribution": "Kyoto Aquarium",
+    "enabled": true
   },
   {
     "id": "sunshine-aquarium",
-    "name": "サンシャイン水族館",
+    "name": "Sunshine Aquarium",
     "type": "html",
     "url": "https://sunshinecity.jp/aquarium/news/",
-    "category": "生きもの",
+    "category": "creatures",
     "visual": "water",
-    "licenseName": "公式発表",
-    "attribution": "サンシャイン水族館"
+    "licenseName": "official announcement",
+    "attribution": "Sunshine Aquarium",
+    "enabled": true
   },
   {
     "id": "en-wikinews",
     "name": "Wikinews",
     "type": "mediawiki",
     "url": "https://en.wikinews.org/w/api.php?action=query&generator=categorymembers&gcmtitle=Category:Published&gcmlimit=20&gcmnamespace=0&gcmdir=desc&prop=info&inprop=url&format=json",
-    "category": "世界",
+    "category": "world",
     "visual": "market",
     "licenseName": "CC BY 4.0 / CC BY 2.5",
     "licenseUrl": "https://en.wikinews.org/wiki/Wikinews:Copyright",
-    "attribution": "Wikinews"
+    "attribution": "Wikinews",
+    "enabled": true
   },
   {
     "id": "riken",
-    "name": "理化学研究所",
+    "name": "RIKEN",
     "type": "html",
     "url": "https://www.riken.jp/press/",
-    "category": "研究",
+    "category": "research",
     "visual": "market",
-    "licenseName": "公式発表",
-    "attribution": "理化学研究所"
+    "licenseName": "official announcement",
+    "attribution": "RIKEN",
+    "enabled": true
   },
   {
     "id": "meti",
-    "name": "経済産業省",
+    "name": "METI",
     "type": "html",
     "url": "https://www.meti.go.jp/press/",
-    "category": "社会",
+    "category": "society",
     "visual": "station",
-    "licenseName": "公式発表",
-    "attribution": "経済産業省"
+    "licenseName": "official announcement",
+    "attribution": "METI",
+    "enabled": false
   }
 ]
