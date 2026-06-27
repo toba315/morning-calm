@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
-const port = Number.parseInt(process.env.PORT || process.argv.find((arg) => arg.startsWith("--port="))?.split("=")[1] || "4173", 10);
+const port = Number.parseInt(process.env.PORT || process.argv.find((arg) => arg.startsWith("--port="))?.split("=")[1] || "4174", 10);
 const newsJsonPath = path.join(rootDir, "data", "news-items.json");
 const newsJsPath = path.join(rootDir, "news-data.js");
 const publishedJsonPath = path.join(rootDir, "data", "published-news.json");
@@ -24,6 +24,10 @@ const contentTypes = {
 
 const server = http.createServer(async (request, response) => {
   try {
+    if (request.method === "OPTIONS") {
+      return sendCorsPreflight(response);
+    }
+
     if (request.method === "GET" && request.url === "/api/news") {
       return sendJson(response, await readNewsState());
     }
@@ -62,9 +66,18 @@ async function serveStatic(request, response) {
     return;
   }
 
-  const data = await fs.readFile(filePath);
-  response.writeHead(200, { "content-type": contentTypes[path.extname(filePath)] || "application/octet-stream" });
-  response.end(data);
+  try {
+    const data = await fs.readFile(filePath);
+    response.writeHead(200, { "content-type": contentTypes[path.extname(filePath)] || "application/octet-stream" });
+    response.end(data);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      response.writeHead(404, { "content-type": "text/plain; charset=utf-8" });
+      response.end("Not found");
+      return;
+    }
+    throw error;
+  }
 }
 
 async function readNewsState() {
@@ -129,6 +142,22 @@ async function readJsonBody(request) {
 }
 
 function sendJson(response, data, status = 200) {
-  response.writeHead(status, { "content-type": "application/json; charset=utf-8" });
+  response.writeHead(status, {
+    "content-type": "application/json; charset=utf-8",
+    ...corsHeaders(),
+  });
   response.end(JSON.stringify(data, null, 2));
+}
+
+function sendCorsPreflight(response) {
+  response.writeHead(204, corsHeaders());
+  response.end();
+}
+
+function corsHeaders() {
+  return {
+    "access-control-allow-origin": "*",
+    "access-control-allow-methods": "GET,POST,OPTIONS",
+    "access-control-allow-headers": "content-type",
+  };
 }

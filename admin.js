@@ -4,6 +4,9 @@ const state = {
   generatedAt: "",
 };
 
+const apiBase = `${window.location.protocol}//${window.location.hostname}:4174`;
+const frontUrl = `${window.location.protocol}//${window.location.hostname}:4173/index.html`;
+
 const el = {
   fetchNews: document.querySelector("#fetchNews"),
   publishNews: document.querySelector("#publishNews"),
@@ -38,7 +41,7 @@ async function loadNews() {
 async function fetchLatestNews() {
   setBusy(true, "ニュース取得中");
   try {
-    const data = await api("/api/fetch", { method: "POST" });
+    const data = await api(`${apiBase}/api/fetch`, { method: "POST" });
     state.candidates = data.state.candidates || [];
     state.generatedAt = data.state.generatedAt || "";
     state.selectedIds = (data.state.articles || []).slice(0, 5).map((article) => article.id);
@@ -56,7 +59,7 @@ async function publishSelected() {
 
   setBusy(true, "反映中");
   try {
-    await api("/api/publish", {
+    await api(`${apiBase}/api/publish`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ ids: state.selectedIds }),

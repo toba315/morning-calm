@@ -6,6 +6,7 @@
   "scripts": {
     "backlog:sync": "node scripts/backlog-sync.mjs sync",
     "backlog:task": "node scripts/backlog-sync.mjs task",
+    "serve": "node scripts/static-server.mjs",
     "admin": "node scripts/admin-server.mjs",
     "news:fetch": "node scripts/fetch-news.mjs",
     "news:candidates": "node scripts/fetch-news.mjs --detail-limit=30 --no-publish",
