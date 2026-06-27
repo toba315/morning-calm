@@ -6,7 +6,9 @@
   "scripts": {
     "backlog:sync": "node scripts/backlog-sync.mjs sync",
     "backlog:task": "node scripts/backlog-sync.mjs task",
+    "admin": "node scripts/admin-server.mjs",
     "news:fetch": "node scripts/fetch-news.mjs",
+    "news:candidates": "node scripts/fetch-news.mjs --detail-limit=30 --no-publish",
     "news:schedule:windows": "powershell -ExecutionPolicy Bypass -File scripts/register-news-task.ps1"
   },
   "dependencies": {

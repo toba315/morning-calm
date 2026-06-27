@@ -46,6 +46,30 @@ powershell -ExecutionPolicy Bypass -File scripts/register-news-task.ps1 -DailyTi
 
 登録後、タスクスケジューラ上で `MorningCalmNewsFetch` として確認できます。
 
+## Manual admin workflow
+
+自動化前は、管理画面で候補を確認してからフロントへ反映します。
+
+```bash
+npm run admin
+```
+
+Open:
+
+```text
+http://localhost:4173/admin.html
+```
+
+管理画面でできること:
+
+- ニュース候補を取得する
+- 候補一覧から5件を選ぶ
+- 選んだ5件を `news-data.js` に反映する
+- フロント画面を開いて反映結果を確認する
+
+`ニュースを取得` は `data/news-items.json` の候補だけを更新します。
+フロントへ反映するのは `選択した5件を反映` を押した時だけです。
+
 ## ソース追加
 
 `scripts/news-sources.json` に追加する。

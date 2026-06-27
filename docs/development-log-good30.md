@@ -79,3 +79,52 @@ Latest fetch result:
 - Add AI positive filtering in GOOD-31 / GOOD-15 integration.
 - Decide whether to store fetched raw candidates separately for debugging.
 - Register the Windows scheduled task when daily automatic execution is needed on the target machine.
+
+## 2026-06-27 Admin Screen
+
+Added a manual admin workflow so the operator can confirm that news fetches correctly before automation is introduced.
+
+### What Changed
+
+- Added `admin.html`, `admin.css`, and `admin.js`.
+- Added `scripts/admin-server.mjs`.
+- Added `npm run admin`.
+- Added `data/published-news.json`.
+- Added `npm run news:candidates`.
+- Updated `scripts/fetch-news.mjs` with `--no-publish`.
+
+### Manual Workflow
+
+1. Start the local admin server:
+
+```bash
+npm run admin
+```
+
+2. Open:
+
+```text
+http://localhost:4173/admin.html
+```
+
+3. Click `ニュースを取得`.
+4. Select exactly five candidate news items.
+5. Click `選択した5件を反映`.
+6. Open the front screen from the admin link or `index.html`.
+
+### Behavior
+
+- `ニュースを取得` updates `data/news-items.json` candidates only.
+- It does not publish to the front app.
+- `選択した5件を反映` writes:
+  - `data/published-news.json`
+  - `news-data.js`
+- The front app reads `news-data.js`, so the selected five articles appear after reload.
+
+### Verification
+
+- `GET /api/news`: OK
+- `POST /api/fetch`: OK
+- `POST /api/publish`: OK
+- `node --check scripts/admin-server.mjs`: OK
+- `node --check admin.js`: OK
