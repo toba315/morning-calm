@@ -1,4 +1,4 @@
-# Current Backlog Task: アプリのニュース一覧画面の実装
+# GOOD-16: アプリのニュース一覧画面の実装
 
 ## Summary
 
